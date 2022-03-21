@@ -13,6 +13,7 @@
 		C783A08D27E8EFA400B6D740 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C783A08B27E8EFA400B6D740 /* Main.storyboard */; };
 		C783A08F27E8EFA500B6D740 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C783A08E27E8EFA500B6D740 /* Assets.xcassets */; };
 		C783A09227E8EFA500B6D740 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C783A09027E8EFA500B6D740 /* LaunchScreen.storyboard */; };
+		C783A09A27E8F03900B6D740 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C783A09927E8F03900B6D740 /* ButtonExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C783A08E27E8EFA500B6D740 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C783A09127E8EFA500B6D740 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C783A09327E8EFA500B6D740 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C783A09927E8F03900B6D740 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				C783A08527E8EFA400B6D740 /* AppDelegate.swift */,
 				C783A08727E8EFA400B6D740 /* SceneDelegate.swift */,
+				C783A09927E8F03900B6D740 /* ButtonExtension.swift */,
 				C783A08927E8EFA400B6D740 /* ViewController.swift */,
 				C783A08B27E8EFA400B6D740 /* Main.storyboard */,
 				C783A08E27E8EFA500B6D740 /* Assets.xcassets */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C783A08A27E8EFA400B6D740 /* ViewController.swift in Sources */,
+				C783A09A27E8F03900B6D740 /* ButtonExtension.swift in Sources */,
 				C783A08627E8EFA400B6D740 /* AppDelegate.swift in Sources */,
 				C783A08827E8EFA400B6D740 /* SceneDelegate.swift in Sources */,
 			);
