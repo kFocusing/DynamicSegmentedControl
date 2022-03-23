@@ -18,8 +18,6 @@
 		C7DA2D6927EB2353001460D7 /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6827EB2353001460D7 /* CellReusable.swift */; };
 		C7DA2D6B27EB23CC001460D7 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */; };
 		C7DA2D6D27EB23EC001460D7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */; };
-		C7DA2D6F27EB240B001460D7 /* BaseDynamicHeightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6E27EB240B001460D7 /* BaseDynamicHeightCollectionViewCell.swift */; };
-		C7DA2D7127EB754C001460D7 /* SegmentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D7027EB754C001460D7 /* SegmentInfoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +34,6 @@
 		C7DA2D6827EB2353001460D7 /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
 		C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		C7DA2D6E27EB240B001460D7 /* BaseDynamicHeightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDynamicHeightCollectionViewCell.swift; sourceTree = "<group>"; };
-		C7DA2D7027EB754C001460D7 /* SegmentInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentInfoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,22 +66,76 @@
 		C783A08427E8EFA400B6D740 /* DynamicSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
-				C783A08527E8EFA400B6D740 /* AppDelegate.swift */,
-				C783A08727E8EFA400B6D740 /* SceneDelegate.swift */,
-				C783A08B27E8EFA400B6D740 /* Main.storyboard */,
+				C7FAD8DD27EBCE7000BD747E /* App&SceneDelegate */,
+				C7FAD8DE27EBCE9B00BD747E /* Extension */,
+				C7FAD8D927EBCE4900BD747E /* Model */,
+				C7FAD8DA27EBCE5100BD747E /* View */,
+				C7FAD8DB27EBCE5500BD747E /* Controller */,
 				C783A08E27E8EFA500B6D740 /* Assets.xcassets */,
-				C783A09027E8EFA500B6D740 /* LaunchScreen.storyboard */,
 				C783A09327E8EFA500B6D740 /* Info.plist */,
-				C7B80DE627EB1FE9001BF106 /* UIViewExtension.swift */,
-				C783A09927E8F03900B6D740 /* ButtonExtension.swift */,
-				C783A08927E8EFA400B6D740 /* ViewController.swift */,
-				C7DA2D7027EB754C001460D7 /* SegmentInfoModel.swift */,
-				C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */,
-				C7DA2D6827EB2353001460D7 /* CellReusable.swift */,
-				C7DA2D6E27EB240B001460D7 /* BaseDynamicHeightCollectionViewCell.swift */,
-				C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */,
 			);
 			path = DynamicSegmentedControl;
+			sourceTree = "<group>";
+		};
+		C7FAD8D927EBCE4900BD747E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7FAD8DA27EBCE5100BD747E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7FAD8DF27EBCEB300BD747E /* Storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7FAD8DB27EBCE5500BD747E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C783A08927E8EFA400B6D740 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C7FAD8DD27EBCE7000BD747E /* App&SceneDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				C783A08527E8EFA400B6D740 /* AppDelegate.swift */,
+				C783A08727E8EFA400B6D740 /* SceneDelegate.swift */,
+			);
+			path = "App&SceneDelegate";
+			sourceTree = "<group>";
+		};
+		C7FAD8DE27EBCE9B00BD747E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C7B80DE627EB1FE9001BF106 /* UIViewExtension.swift */,
+				C783A09927E8F03900B6D740 /* ButtonExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C7FAD8DF27EBCEB300BD747E /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				C783A08B27E8EFA400B6D740 /* Main.storyboard */,
+				C783A09027E8EFA500B6D740 /* LaunchScreen.storyboard */,
+				C7FAD8E027EBCEBE00BD747E /* CustomCell */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		C7FAD8E027EBCEBE00BD747E /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				C7DA2D6827EB2353001460D7 /* CellReusable.swift */,
+				C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */,
+				C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */,
+			);
+			path = CustomCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,8 +213,6 @@
 				C7DA2D6D27EB23EC001460D7 /* BaseCollectionViewCell.swift in Sources */,
 				C7B80DE727EB1FE9001BF106 /* UIViewExtension.swift in Sources */,
 				C783A08A27E8EFA400B6D740 /* ViewController.swift in Sources */,
-				C7DA2D6F27EB240B001460D7 /* BaseDynamicHeightCollectionViewCell.swift in Sources */,
-				C7DA2D7127EB754C001460D7 /* SegmentInfoModel.swift in Sources */,
 				C783A09A27E8F03900B6D740 /* ButtonExtension.swift in Sources */,
 				C783A08627E8EFA400B6D740 /* AppDelegate.swift in Sources */,
 				C783A08827E8EFA400B6D740 /* SceneDelegate.swift in Sources */,
