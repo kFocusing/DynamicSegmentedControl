@@ -7,99 +7,121 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     //MARK: - Variables -
-    private let items  = ["C++", "C#", "Java", "Swift",  "SQL", "JS", "Python", "TS"]
-    private let segmentedControlBackgroundColor = UIColor.init(white: 0.1, alpha: 0.1)
-    
-    private lazy var segmentedControlButtons: [UIButton] = {
-        var segmentedControlButtons: [UIButton] = []
-        for item in items {
-            let button = UIButton().createSegmentedControlButton(setTitle: item)
-            button.addTarget(self,
-                             action: #selector(handleSegmentedControlButtons(sender:)),
-                             for: .touchUpInside)
-            segmentedControlButtons.append(button)
-        }
-        return segmentedControlButtons
+    private let segmentedItems = ["C++", "C#", "Java", "Swift",  "SQL", "JS", "Python", "TS"]
+    private var collectionView: UICollectionView!
+    private lazy var itemsPerRow: CGFloat = {
+        var itemsPerRow = CGFloat(segmentedItems.count)
+        return itemsPerRow
     }()
+    private let itemSize = CGSize(width: 100, height: 50)
     
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        return segmentedControl
-    }()
     
     //MARK: - Life Cycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCustomSegmentedControl()
+        setupCollectionView()
+        setupSegment()
     }
     
     //MARK: - Private -
-    @objc private func handleSegmentedControlButtons(sender: UIButton) {
-        for button in segmentedControlButtons {
-            if button == sender {
-                UIView.animate(withDuration: 0.2, delay: 0.1, options: .transitionFlipFromLeft) {
-                    button.backgroundColor = .white
-                }
-            } else {
-                UIView.animate(withDuration: 0.2, delay: 0.1, options: .transitionFlipFromLeft) { [weak self] in
-                    button.backgroundColor = self?.segmentedControlBackgroundColor
-                }
-            }
-        }
+    private func setupSegment() {
+        let segmentUnderlineWidth: CGFloat = itemSize.width * itemsPerRow
+        let segmentUnderlineHeight: CGFloat = 2.0
+        let segmentUnderlineXPosition = collectionView.bounds.minX
+        let segmentUnderLineYPosition = collectionView.bounds.size.height - 1.0
+        let segmentUnderlineFrame = CGRect(x: segmentUnderlineXPosition,
+                                           y: segmentUnderLineYPosition,
+                                           width: segmentUnderlineWidth,
+                                           height: segmentUnderlineHeight)
+        let segmentUnderline = UIView(frame: segmentUnderlineFrame)
+        segmentUnderline.backgroundColor = UIColor.clear
+
+        collectionView.addSubview(segmentUnderline)
+        view.layoutIfNeeded()
+        addUnderlineForSelectedSegment(selectedSegmentIndex: 0)
+    }
+
+    private func addUnderlineForSelectedSegment(selectedSegmentIndex: Int) {
+        let underlineWidth: CGFloat = itemSize.width * itemsPerRow / CGFloat(itemsPerRow)
+        let underlineHeight: CGFloat = 2.0
+        let underlineXPosition = CGFloat(selectedSegmentIndex) * underlineWidth
+        let underLineYPosition = collectionView.bounds.size.height - 1.0
+        let underlineFrame = CGRect(x: underlineXPosition,
+                                    y: underLineYPosition,
+                                    width: underlineWidth,
+                                    height: underlineHeight)
+        let underline = UIView(frame: underlineFrame)
+        underline.backgroundColor = UIColor.blue
+        underline.tag = 1
+        collectionView.addSubview(underline)
+        view.layoutIfNeeded()
     }
     
-    private func configureCustomSegmentedControl() {
-        segmentedControlButtons.first?.backgroundColor = .white
-        let stackView = UIStackView(arrangedSubviews: segmentedControlButtons)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        
-        let scrollView = UIScrollView()
-        scrollView.contentSize = CGSize(width: .zero, height: 50)
-        scrollView.backgroundColor = segmentedControlBackgroundColor
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.addSubview(stackView)
-        
-        view.addSubview(scrollView)
-        
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: 40),
-            
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
+    private func changeUnderlinePosition(indexPath: IndexPath) {
+        guard let underline = view.viewWithTag(1) else {return}
+        let underlineFinalXPosition = ((itemSize.width * itemsPerRow) / CGFloat(itemsPerRow)) * CGFloat(indexPath.row)
+        underline.frame.origin.x = underlineFinalXPosition
+        view.layoutIfNeeded()
     }
     
-    private func configureScrollableSegmentedControl() {
-        let scrollView = UIScrollView()
-        scrollView.contentSize = CGSize(width: .zero, height: 50)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.addSubview(segmentedControl)
-        view.addSubview(scrollView)
+    private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets.zero
+        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 0
+        layout.itemSize = itemSize
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: 40),
-            
-            segmentedControl.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 40)
+            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
+            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 80)
         ])
+        
+        PlaceCollectionViewCell.register(in: collectionView)
+        collectionView.reloadData()
+    }
+}
+
+// MARK: - Extensions -
+// MARK: - UICollectionViewDataSource -
+extension ViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return segmentedItems.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = PlaceCollectionViewCell.dequeueCellWithType(in: collectionView, indexPath: indexPath)
+        let title = segmentedItems[indexPath.item]
+        cell.configure(with: title)
+        return cell
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegate -
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        changeUnderlinePosition(indexPath: indexPath)
     }
 }
