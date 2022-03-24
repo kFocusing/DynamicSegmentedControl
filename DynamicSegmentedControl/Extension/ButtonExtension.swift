@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Экстеншн нигде не используется. удалить
 extension UIButton {
     func createSegmentedControlButton(setTitle title: String) -> UIButton {
         let button = UIButton()

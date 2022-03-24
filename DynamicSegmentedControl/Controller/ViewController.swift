@@ -11,12 +11,15 @@ import UIKit
 class ViewController: UIViewController {
     
     //MARK: - Variables -
-    private let segmentedItems = ["C++", "C#", "Java", "Swift",  "SQL", "JS", "Python", "TS"]
+    private let segmentedItems = ["C++", "C#", "Java", "Swift",  "SQL", "JS", "Python", "Multithreading"]
+    
+    // Вообще, ожидалось, что вся работа с коллекцией будет вынесена в кастомную вью. Представь, что сейчас будет задача перенести эту вью куда-то в другой проект или на другой экран. как ты будешь это делать??? Такие элементы должны быть переиспользуемыми! Это главный критерий задачи.
     private var collectionView: UICollectionView!
     private lazy var itemsPerRow: CGFloat = {
         var itemsPerRow = CGFloat(segmentedItems.count)
         return itemsPerRow
     }()
+    // а почему размер фиксированный? если текст будет длинный, что будет с сегментом? текст будет троиточиться? в твоём случае, увеличится высота, потому что там лейбла имеет numberOfLines = 0. это неправильно
     private let itemSize = CGSize(width: 100, height: 50)
     
     
@@ -63,6 +66,11 @@ class ViewController: UIViewController {
     
     private func changeUnderlinePosition(indexPath: IndexPath) {
         guard let underline = view.viewWithTag(1) else {return}
+        
+        // 1) при работе с коллекцией нужно использовать indexPath.item, a не indexPath.row
+        // 2) неправильный подход к высчитывании позиции
+        // 3) ты не центрируешь, а задаёшь стартовый origin.х - это тоже неправильно
+        // 4) нет анимации . анимация - ключевой момент !
         let underlineFinalXPosition = ((itemSize.width * itemsPerRow) / CGFloat(itemsPerRow)) * CGFloat(indexPath.row)
         underline.frame.origin.x = underlineFinalXPosition
         view.layoutIfNeeded()
@@ -125,3 +133,7 @@ extension ViewController: UICollectionViewDelegate {
         changeUnderlinePosition(indexPath: indexPath)
     }
 }
+
+// Ты никак не обработал скролл элемента. при скролле элемента у меня элемент остаётся на том же месте, относительно рамок экрана. индикатор должен держаться того элемента, который выбран.
+
+// У тебя есть еще какие-то артефакты (то ли несколько раз добавленный как сабвью сегмент, то ли что-то еще. посмотри на видео, как это выглядит. видео отправлю лично.
