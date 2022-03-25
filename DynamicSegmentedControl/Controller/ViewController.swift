@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dynamicSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
         layoutDynamicSegmentedControl()
+        setupSegmentedControllItems()
     }
     
     private func layoutDynamicSegmentedControl() {
@@ -30,15 +30,8 @@ class ViewController: UIViewController {
         ])
     }
     
+    private func setupSegmentedControllItems() {
+        let segmentArray = ["Hello", "Home", "YANKEE", "mAster SporT", "All poland childs like work"]
+        dynamicSegmentedControl.addSegments(segmentArray)
+    }
 }
-
-
-
-
-
-
-
-
-
-// Ты никак не обработал скролл элемента. при скролле элемента у меня элемент остаётся на том же месте, относительно рамок экрана. индикатор должен держаться того элемента, который выбран.
-

@@ -8,29 +8,7 @@
 import UIKit
 
 class DynamicSegmentedControl: UIView {
-    //    required init?(coder aDecoder: NSCoder) {
-    //        super.init(coder: aDecoder)
-    //        initSubviews()
-    //    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        if segmentedItems.count != 0 {
-            initSubviews()
-            backgroundColor = collectionViewBackgroundColor
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        setupSegment()
-    }
-    
-    var segmentedItems: [String] = ["Family", "Work", "MARKET", "HObbie", "Hunting Club", "AUTO CLUB", "HEATLH CEnter"]
+    var segmentedItems: [String] = []
     
     var minimumInteritemSpacing: CGFloat = 1
     var cellTextIndent: CGFloat = 20
@@ -69,14 +47,39 @@ class DynamicSegmentedControl: UIView {
         return itemsPerRow
     }()
     
+    //MARK: - Life Cycle -
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = collectionViewBackgroundColor
+        if segmentedItems.count != 0 {
+            initSubviews()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if segmentedItems.count != 0 {
+            setupSegment()
+        }
+    }
     
     //MARK: - Internal -
-    func initSubviews() {
+    func addSegments(_ segment: [String]) {
+        segmentedItems = segment
+        initSubviews()
+    }
+    
+    //MARK: - Private -
+    private func initSubviews() {
         capitalizedUserItems()
         setupCollectionView()
     }
     
-    //MARK: - Private -
     private func setupSegment() {
         let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: segmentedItems.first!) * itemsPerRow) + cellTextIndent + minimumInteritemSpacing + cellTextIndent
         let segmentUnderlineHeight: CGFloat = 2.0
