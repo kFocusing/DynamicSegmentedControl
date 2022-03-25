@@ -15,8 +15,10 @@ class DynamicSegmentedControl: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        initSubviews()
+        if segmentedItems.count != 0 {
+            initSubviews()
+            backgroundColor = collectionViewBackgroundColor
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +30,7 @@ class DynamicSegmentedControl: UIView {
         setupSegment()
     }
     
-    var segmentedItems: [String] = ["Family", "Work", "MARKET", "HObbie",  "Hunting Club", "AUTO CLUB", "HEATLH CEnter"]
+    var segmentedItems: [String] = ["Family", "Work", "MARKET", "HObbie", "Hunting Club", "AUTO CLUB", "HEATLH CEnter"]
     
     var minimumInteritemSpacing: CGFloat = 1
     var cellTextIndent: CGFloat = 20
@@ -158,7 +160,6 @@ class DynamicSegmentedControl: UIView {
 }
 
 
-
 // MARK: - Extensions -
 // MARK: - UICollectionViewDataSource -
 extension DynamicSegmentedControl: UICollectionViewDataSource {
@@ -188,6 +189,9 @@ extension DynamicSegmentedControl: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         changeUnderlinePosition(indexPath: indexPath)
+        collectionView.scrollToItem(at: indexPath,
+                                    at: .centeredHorizontally,
+                                    animated: true)
     }
 }
 
