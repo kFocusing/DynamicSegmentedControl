@@ -8,21 +8,8 @@
 import UIKit
 
 class DynamicSegmentedControl: UIView {
-    var segmentedItems: [String] = []
     
-    var minimumInteritemSpacing: CGFloat = 1
-    var cellTextIndent: CGFloat = 20
-    var itemHeight: CGFloat = 50
-    
-    var textFont: UIFont = .boldSystemFont(ofSize: 17)
-    var textColor: UIColor = .blue
-    
-    var underlineColor: UIColor = .blue
-    var collectionViewBackgroundColor: UIColor = .systemGray4
-    var cellBackgroundColor: UIColor = .systemGray4
-    
-    var underlineMovementSpeed: TimeInterval = 0.4
-    
+    //MARK: - UIElements -
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets.zero
@@ -42,19 +29,40 @@ class DynamicSegmentedControl: UIView {
         return collectionView
     }()
     
+    //MARK: - Variables -
+    var minimumInteritemSpacing: CGFloat = 1
+    var cellTextIndent: CGFloat = 20
+    var itemHeight: CGFloat = 50
+    
+    var textFont: UIFont = .boldSystemFont(ofSize: 17)
+    var textColor: UIColor = .blue
+    
+    var underlineColor: UIColor = .blue
+    var collectionViewBackgroundColor: UIColor = .systemGray4
+    var cellBackgroundColor: UIColor = .systemGray4
+    
+    var underlineMovementSpeed: TimeInterval = 0.4
+    
+    //MARK: - Private Variables -
+    private var segmentedItems: [String] = []
+    
     private lazy var itemsPerRow: CGFloat = {
         var itemsPerRow = CGFloat(segmentedItems.count)
         return itemsPerRow
     }()
     
     //MARK: - Life Cycle -
-    
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         backgroundColor = collectionViewBackgroundColor
-        if segmentedItems.count != 0 {
-            initSubviews()
-        }
+        initSubviews()
+    }
+    
+    required init(segmentedItems: [String]) {
+        super.init(frame: .zero)
+        self.segmentedItems = segmentedItems
+        backgroundColor = collectionViewBackgroundColor
+        initSubviews()
     }
     
     required init?(coder: NSCoder) {
@@ -71,7 +79,8 @@ class DynamicSegmentedControl: UIView {
     //MARK: - Internal -
     func addSegments(_ segment: [String]) {
         segmentedItems = segment
-        initSubviews()
+        capitalizedUserItems()
+        collectionView.reloadData()
     }
     
     //MARK: - Private -
