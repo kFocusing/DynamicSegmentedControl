@@ -10,7 +10,7 @@ import UIKit
 class DynamicSegmentedControl: UIView {
     
     //MARK: - UIElements -
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets.zero
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
@@ -29,22 +29,21 @@ class DynamicSegmentedControl: UIView {
         return collectionView
     }()
     
-    //MARK: - Variables -
-    var minimumInteritemSpacing: CGFloat = 1
-    var cellTextIndent: CGFloat = 20
-    var itemHeight: CGFloat = 50
-    
-    var textFont: UIFont = .boldSystemFont(ofSize: 17)
-    var textColor: UIColor = .blue
-    
-    var underlineColor: UIColor = .blue
-    var collectionViewBackgroundColor: UIColor = .systemGray4
-    var cellBackgroundColor: UIColor = .systemGray4
-    
-    var underlineMovementSpeed: TimeInterval = 0.4
-    
     //MARK: - Private Variables -
     private var segmentedItems: [String] = []
+    
+    private var textFont: UIFont = .boldSystemFont(ofSize: 17)
+    private var textColor: UIColor = .blue
+
+    private var underlineColor: UIColor = .blue
+    private var underlineMovementSpeed: TimeInterval = 0.4
+    
+    private var cellBackgroundColor: UIColor = .systemGray4
+    private var collectionViewBackgroundColor: UIColor = .systemGray4
+    
+    private var minimumInteritemSpacing: CGFloat = 1
+    private var cellTextIndent: CGFloat = 20
+    private var itemHeight: CGFloat = 50
     
     private lazy var itemsPerRow: CGFloat = {
         var itemsPerRow = CGFloat(segmentedItems.count)
@@ -54,14 +53,12 @@ class DynamicSegmentedControl: UIView {
     //MARK: - Life Cycle -
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = collectionViewBackgroundColor
         initSubviews()
     }
     
     required init(segmentedItems: [String]) {
         super.init(frame: .zero)
         self.segmentedItems = segmentedItems
-        backgroundColor = collectionViewBackgroundColor
         initSubviews()
     }
     
@@ -81,6 +78,42 @@ class DynamicSegmentedControl: UIView {
         segmentedItems = segment
         capitalizedUserItems()
         collectionView.reloadData()
+    }
+    
+    func changeCollectionViewBackgroundColor(_ color: UIColor) {
+        collectionView.backgroundColor = color
+    }
+    
+    func changeCellBackgroundColor(_ color: UIColor) {
+        cellBackgroundColor = color
+    }
+    
+    func changeUnderlineMovementSpeed(_ speed: TimeInterval) {
+        underlineMovementSpeed = speed
+    }
+    
+    func changeUnderlineColor(_ color: UIColor) {
+        underlineColor = color
+    }
+    
+    func changeTextColor(_ color: UIColor) {
+        textColor = color
+    }
+    
+    func changeTextFont(_ font: UIFont) {
+        textFont = font
+    }
+    
+    func changeMinimumInteritemSpacing(_ spacing: CGFloat) {
+        minimumInteritemSpacing = spacing
+    }
+    
+    func changeCellTextIndent(_ indent: CGFloat) {
+        cellTextIndent = indent
+    }
+   
+    func changeItemHeight(_ height: CGFloat) {
+        itemHeight = height
     }
     
     //MARK: - Private -
