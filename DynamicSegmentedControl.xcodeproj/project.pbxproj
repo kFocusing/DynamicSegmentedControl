@@ -13,10 +13,10 @@
 		C783A08D27E8EFA400B6D740 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C783A08B27E8EFA400B6D740 /* Main.storyboard */; };
 		C783A08F27E8EFA500B6D740 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C783A08E27E8EFA500B6D740 /* Assets.xcassets */; };
 		C783A09227E8EFA500B6D740 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C783A09027E8EFA500B6D740 /* LaunchScreen.storyboard */; };
-		C783A09A27E8F03900B6D740 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C783A09927E8F03900B6D740 /* ButtonExtension.swift */; };
+		C79015AE27EE5BD60000F877 /* EViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79015AD27EE5BD60000F877 /* EViewController.swift */; };
 		C7B80DE727EB1FE9001BF106 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B80DE627EB1FE9001BF106 /* UIViewExtension.swift */; };
 		C7DA2D6927EB2353001460D7 /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6827EB2353001460D7 /* CellReusable.swift */; };
-		C7DA2D6B27EB23CC001460D7 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */; };
+		C7DA2D6B27EB23CC001460D7 /* SegmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6A27EB23CC001460D7 /* SegmentCollectionViewCell.swift */; };
 		C7DA2D6D27EB23EC001460D7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,10 +29,10 @@
 		C783A08E27E8EFA500B6D740 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C783A09127E8EFA500B6D740 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C783A09327E8EFA500B6D740 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C783A09927E8F03900B6D740 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		C79015AD27EE5BD60000F877 /* EViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EViewController.swift; sourceTree = "<group>"; };
 		C7B80DE627EB1FE9001BF106 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C7DA2D6827EB2353001460D7 /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
-		C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
+		C7DA2D6A27EB23CC001460D7 /* SegmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +87,7 @@
 		C7FAD8DA27EBCE5100BD747E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C7FAD8E027EBCEBE00BD747E /* CustomCell */,
 				C7FAD8DF27EBCEB300BD747E /* Storyboard */,
 			);
 			path = View;
@@ -96,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C783A08927E8EFA400B6D740 /* ViewController.swift */,
+				C79015AD27EE5BD60000F877 /* EViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -113,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				C7B80DE627EB1FE9001BF106 /* UIViewExtension.swift */,
-				C783A09927E8F03900B6D740 /* ButtonExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -123,7 +124,6 @@
 			children = (
 				C783A08B27E8EFA400B6D740 /* Main.storyboard */,
 				C783A09027E8EFA500B6D740 /* LaunchScreen.storyboard */,
-				C7FAD8E027EBCEBE00BD747E /* CustomCell */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 			children = (
 				C7DA2D6827EB2353001460D7 /* CellReusable.swift */,
 				C7DA2D6C27EB23EC001460D7 /* BaseCollectionViewCell.swift */,
-				C7DA2D6A27EB23CC001460D7 /* PlaceCollectionViewCell.swift */,
+				C7DA2D6A27EB23CC001460D7 /* SegmentCollectionViewCell.swift */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -209,11 +209,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7DA2D6B27EB23CC001460D7 /* PlaceCollectionViewCell.swift in Sources */,
+				C7DA2D6B27EB23CC001460D7 /* SegmentCollectionViewCell.swift in Sources */,
 				C7DA2D6D27EB23EC001460D7 /* BaseCollectionViewCell.swift in Sources */,
 				C7B80DE727EB1FE9001BF106 /* UIViewExtension.swift in Sources */,
 				C783A08A27E8EFA400B6D740 /* ViewController.swift in Sources */,
-				C783A09A27E8F03900B6D740 /* ButtonExtension.swift in Sources */,
+				C79015AE27EE5BD60000F877 /* EViewController.swift in Sources */,
 				C783A08627E8EFA400B6D740 /* AppDelegate.swift in Sources */,
 				C783A08827E8EFA400B6D740 /* SceneDelegate.swift in Sources */,
 				C7DA2D6927EB2353001460D7 /* CellReusable.swift in Sources */,

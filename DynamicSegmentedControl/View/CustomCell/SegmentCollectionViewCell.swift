@@ -7,21 +7,19 @@
 
 import UIKit
 
-class PlaceCollectionViewCell: BaseCollectionViewCell {
+class SegmentCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Variables -
     private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.systemGray4
+        view.backgroundColor = .systemGray4
         contentView.addSubview(view)
         return view
     }()
     private lazy var title: UILabel = {
         let label = UILabel()
-        // Зачем здесь делать лейблу динамически расширяемой по высоте? у тебя ж высота ячейки будет ограниченной. растягивать как раз таки нужно по ширине
-        label.numberOfLines = 0
-        label.font = UIFont(name:"HelveticaNeue-Bold", size: 17.0)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
         contentView.addSubview(label)
@@ -40,8 +38,12 @@ class PlaceCollectionViewCell: BaseCollectionViewCell {
     }
     
     //MARK: - Internal -
-    func configure(with title: String) {
-        setupTitle(with: title)
+    func configure(textOptions: (title: String,
+                                 font: UIFont,
+                                 textColor: UIColor),
+                   cellBackgroundColor: UIColor) {
+        setupTitle(textOptions: textOptions)
+        setupCellBackgroundColor(cellBackgroundColor: cellBackgroundColor)
     }
     
     //MARK: - Private -
@@ -54,15 +56,21 @@ class PlaceCollectionViewCell: BaseCollectionViewCell {
     }
     
     private func layoutLabel() {
-        // А если название будет длинным? оно будет вылазить за пределы ячейки. а ячейка должна растягиваться по горизонтали, в зависимости от контента
         NSLayoutConstraint.activate([
             title.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             title.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
         ])
     }
     
-    private func setupTitle(with title: String) {
-        // Лучше здесь обработать регистр тайтла. Определиться: будет ли апперкейс, или просто капиталайзед (начинается с большой буквы), и применить его. чтоб все элементы были в одном формате, независимо от формата входящих данных
-        self.title.text = title
+    private func setupTitle(textOptions: (title: String,
+                                          font: UIFont,
+                                          textColor: UIColor)) {
+        self.title.text = textOptions.title
+        self.title.font = textOptions.font
+        self.title.textColor = textOptions.textColor
+    }
+    
+    private func setupCellBackgroundColor(cellBackgroundColor: UIColor) {
+        self.containerView.backgroundColor = cellBackgroundColor
     }
 }

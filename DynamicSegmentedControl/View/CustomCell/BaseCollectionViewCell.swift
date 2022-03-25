@@ -9,6 +9,4 @@ import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell,
                               CollectionCellRegistable,
-                              CollectionCellDequeueReusable {
-    
-}
+                              CollectionCellDequeueReusable { }
