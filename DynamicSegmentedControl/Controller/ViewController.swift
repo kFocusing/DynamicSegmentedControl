@@ -10,14 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private lazy var dynamicSegmentedControl = DynamicSegmentedControl()
+    private lazy var dynamicSegmentedControl: DynamicSegmentedControl = {
+        let dynamicSegmentedControl = DynamicSegmentedControl()
+        let segmentArray = ["Hello", "Home", "YANKEE", "mAster SporT", "All poland childs like work"]
+        dynamicSegmentedControl.addSegments(segmentArray)
+        return dynamicSegmentedControl
+    }()
     
     //MARK: - Life Cycle -
     override func viewDidLoad() {
         super.viewDidLoad()
         dynamicSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         layoutDynamicSegmentedControl()
-        setupSegmentedControllItems()
     }
     
     private func layoutDynamicSegmentedControl() {
@@ -28,10 +32,5 @@ class ViewController: UIViewController {
             dynamicSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dynamicSegmentedControl.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 80)
         ])
-    }
-    
-    private func setupSegmentedControllItems() {
-        let segmentArray = ["Hello", "Home", "YANKEE", "mAster SporT", "All poland childs like work"]
-        dynamicSegmentedControl.addSegments(segmentArray)
     }
 }

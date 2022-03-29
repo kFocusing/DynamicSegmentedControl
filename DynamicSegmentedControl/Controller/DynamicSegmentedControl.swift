@@ -1,5 +1,5 @@
 //
-//  EViewController.swift
+//  DynamicSegmentedControl.swift
 //  DynamicSegmentedControl
 //
 //  Created by Danylo Klymov on 25.03.2022.
@@ -12,8 +12,8 @@ class DynamicSegmentedControl: UIView {
     //MARK: - UIElements -
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets.zero
-        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        layout.sectionInset = .zero
+        layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = minimumInteritemSpacing
         layout.minimumLineSpacing = 0
         
@@ -29,21 +29,23 @@ class DynamicSegmentedControl: UIView {
         return collectionView
     }()
     
+    private var selectionIndicator = UIView()
+    
     //MARK: - Private Variables -
     private var segmentedItems: [String] = []
     
-    private var textFont: UIFont = .boldSystemFont(ofSize: 17)
-    private var textColor: UIColor = .blue
-
-    private var underlineColor: UIColor = .blue
-    private var underlineMovementSpeed: TimeInterval = 0.4
+    private let textFont: UIFont = .boldSystemFont(ofSize: 17)
+    private let textColor: UIColor = .blue
     
-    private var cellBackgroundColor: UIColor = .systemGray4
-    private var collectionViewBackgroundColor: UIColor = .systemGray4
+    private let underlineColor: UIColor = .blue
+    private let underlineMovementSpeed: TimeInterval = 0.25
     
-    private var minimumInteritemSpacing: CGFloat = 1
-    private var cellTextIndent: CGFloat = 20
-    private var itemHeight: CGFloat = 50
+    private let cellBackgroundColor: UIColor = .systemGray4
+    private let collectionViewBackgroundColor: UIColor = .systemGray4
+    
+    private let minimumInteritemSpacing: CGFloat = 1
+    private let cellTextIndent: CGFloat = 20
+    private let itemHeight: CGFloat = 50
     
     private lazy var itemsPerRow: CGFloat = {
         var itemsPerRow = CGFloat(segmentedItems.count)
@@ -56,7 +58,16 @@ class DynamicSegmentedControl: UIView {
         initSubviews()
     }
     
-    required init(segmentedItems: [String]) {
+    required init(segmentedItems: [String],
+                  textFont: UIFont = .boldSystemFont(ofSize: 17),
+                  textColor: UIColor = .blue,
+                  underlineColor: UIColor = .blue,
+                  underlineMovementSpeed: TimeInterval = 0.4,
+                  cellBackgroundColor: UIColor = .systemGray4,
+                  collectionViewBackgroundColor: UIColor = .systemGray4,
+                  minimumInteritemSpacing: CGFloat = 1,
+                  cellTextIndent: CGFloat = 20,
+                  itemHeight: CGFloat = 50) {
         super.init(frame: .zero)
         self.segmentedItems = segmentedItems
         initSubviews()
@@ -68,115 +79,61 @@ class DynamicSegmentedControl: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        if segmentedItems.count != 0 {
-            setupSegment()
-        }
+        setupSegment()
     }
     
     //MARK: - Internal -
-    func addSegments(_ segment: [String]) {
-        segmentedItems = segment
-        capitalizedUserItems()
+    func addSegments(_ segments: [String]) {
+        segmentedItems = segments
         collectionView.reloadData()
-    }
-    
-    func changeCollectionViewBackgroundColor(_ color: UIColor) {
-        collectionView.backgroundColor = color
-    }
-    
-    func changeCellBackgroundColor(_ color: UIColor) {
-        cellBackgroundColor = color
-    }
-    
-    func changeUnderlineMovementSpeed(_ speed: TimeInterval) {
-        underlineMovementSpeed = speed
-    }
-    
-    func changeUnderlineColor(_ color: UIColor) {
-        underlineColor = color
-    }
-    
-    func changeTextColor(_ color: UIColor) {
-        textColor = color
-    }
-    
-    func changeTextFont(_ font: UIFont) {
-        textFont = font
-    }
-    
-    func changeMinimumInteritemSpacing(_ spacing: CGFloat) {
-        minimumInteritemSpacing = spacing
-    }
-    
-    func changeCellTextIndent(_ indent: CGFloat) {
-        cellTextIndent = indent
-    }
-   
-    func changeItemHeight(_ height: CGFloat) {
-        itemHeight = height
     }
     
     //MARK: - Private -
     private func initSubviews() {
-        capitalizedUserItems()
         setupCollectionView()
     }
     
     private func setupSegment() {
-        let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: segmentedItems.first!) * itemsPerRow) + cellTextIndent + minimumInteritemSpacing + cellTextIndent
+        guard let firstSegment = segmentedItems.first else { return }
+        
+        let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: firstSegment) * itemsPerRow) + minimumInteritemSpacing + cellTextIndent * 2
         let segmentUnderlineHeight: CGFloat = 2.0
         let segmentUnderlineXPosition = collectionView.bounds.minX
-        
-        let segmentUnderLineYPosition = itemHeight - 1.0
+        let segmentUnderLineYPosition = collectionView.bounds.maxY - 1
         let segmentUnderlineFrame = CGRect(x: segmentUnderlineXPosition,
                                            y: segmentUnderLineYPosition,
                                            width: segmentUnderlineWidth,
                                            height: segmentUnderlineHeight)
+        
         let segmentUnderline = UIView(frame: segmentUnderlineFrame)
         segmentUnderline.backgroundColor = UIColor.clear
         
         collectionView.addSubview(segmentUnderline)
-        addUnderlineForSelectedSegment(selectedSegmentIndex: 0)
+        addUnderlineForSelectedSegment()
     }
     
-    private func addUnderlineForSelectedSegment(selectedSegmentIndex: Int) {
+    private func addUnderlineForSelectedSegment(selectedSegmentIndex: Int = 0) {
         let underlineWidth: CGFloat = getSegmentWidth(from: segmentedItems[selectedSegmentIndex]) + cellTextIndent + minimumInteritemSpacing
         let underlineHeight: CGFloat = 2.0
-        let underlineXPosition = (CGFloat(selectedSegmentIndex) * underlineWidth)
-        let underLineYPosition = collectionView.bounds.size.height - 1
+        let underlineXPosition = (CGFloat(selectedSegmentIndex) * underlineWidth) 
+        let underLineYPosition = collectionView.bounds.maxY - 1
         let underlineFrame = CGRect(x: underlineXPosition,
                                     y: underLineYPosition,
                                     width: underlineWidth,
                                     height: underlineHeight)
         let underline = UIView(frame: underlineFrame)
         underline.backgroundColor = underlineColor
-        underline.tag = 1
+        selectionIndicator = underline
         collectionView.addSubview(underline)
     }
     
     private func changeUnderlinePosition(indexPath: IndexPath) {
-        guard let underline = viewWithTag(1) else { return }
+        guard let choosenItem = collectionView.layoutAttributesForItem(at:indexPath) else { return }
         UIView.animate(withDuration: underlineMovementSpeed) { [self] in
-            var allSkippedCellIntervals: CGFloat = minimumInteritemSpacing
-            var skippedSegmentsWidth: CGFloat = 0
-            
-            if indexPath.item != 0 {
-                allSkippedCellIntervals = (cellTextIndent + minimumInteritemSpacing) * CGFloat(indexPath.item)
-            }
-            
-            for item in segmentedItems {
-                if item == segmentedItems[indexPath.item] {
-                    break
-                }
-                skippedSegmentsWidth += getSegmentWidth(from: item)
-            }
-            
-            let skippedWidth = allSkippedCellIntervals + skippedSegmentsWidth
-            let widthSelectedItem = getSegmentWidth(from: segmentedItems[indexPath.item]) + cellTextIndent
-            let xPointCoordinate = skippedWidth + (widthSelectedItem) / CGFloat(2)
-            
-            underline.frame.size.width = widthSelectedItem
-            underline.center.x = xPointCoordinate
+            let xPointCoordinate = choosenItem.center.x
+            let width = choosenItem.frame.width
+            selectionIndicator.frame.size.width = width
+            selectionIndicator.center.x = xPointCoordinate
         }
     }
     
@@ -187,7 +144,6 @@ class DynamicSegmentedControl: UIView {
     
     private func registerCollectionViewCell() {
         SegmentCollectionViewCell.register(in: collectionView)
-        collectionView.reloadData()
     }
     
     private func layoutCollectionView() {
@@ -197,11 +153,6 @@ class DynamicSegmentedControl: UIView {
     private func getSegmentWidth(from segment: String) -> CGFloat {
         return segment.size(withAttributes: [NSAttributedString.Key.font: textFont]).width
     }
-    
-    private func capitalizedUserItems() {
-        segmentedItems = segmentedItems.map{$0.capitalized}
-    }
-    
 }
 
 
@@ -222,8 +173,9 @@ extension DynamicSegmentedControl: UICollectionViewDataSource {
         let cell = SegmentCollectionViewCell.dequeueCellWithType(in: collectionView,
                                                                  indexPath: indexPath)
         let title = segmentedItems[indexPath.item]
-        let textOptions = (title, textFont, textColor)
-        cell.configure(textOptions: textOptions,
+        cell.configure(textTitle: title,
+                       textFont: textFont,
+                       textColor: textColor,
                        cellBackgroundColor: cellBackgroundColor)
         return cell
     }
@@ -245,6 +197,6 @@ extension DynamicSegmentedControl: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: getSegmentWidth(from: segmentedItems[indexPath.item]) + cellTextIndent, height: itemHeight)
+        return CGSize(width: getSegmentWidth(from: segmentedItems[indexPath.item].capitalized) + cellTextIndent, height: itemHeight)
     }
 }

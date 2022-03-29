@@ -19,7 +19,7 @@ class SegmentCollectionViewCell: BaseCollectionViewCell {
     }()
     private lazy var title: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
         contentView.addSubview(label)
@@ -38,11 +38,13 @@ class SegmentCollectionViewCell: BaseCollectionViewCell {
     }
     
     //MARK: - Internal -
-    func configure(textOptions: (title: String,
-                                 font: UIFont,
-                                 textColor: UIColor),
-                   cellBackgroundColor: UIColor) {
-        setupTitle(textOptions: textOptions)
+    func configure(textTitle: String,
+                   textFont: UIFont = .boldSystemFont(ofSize: 17),
+                   textColor: UIColor = .blue,
+                   cellBackgroundColor: UIColor = .systemGray4) {
+        setupTitle(textЕitle: textTitle,
+                   textFont: textFont,
+                   textColor: textColor)
         setupCellBackgroundColor(cellBackgroundColor: cellBackgroundColor)
     }
     
@@ -62,12 +64,12 @@ class SegmentCollectionViewCell: BaseCollectionViewCell {
         ])
     }
     
-    private func setupTitle(textOptions: (title: String,
-                                          font: UIFont,
-                                          textColor: UIColor)) {
-        self.title.text = textOptions.title
-        self.title.font = textOptions.font
-        self.title.textColor = textOptions.textColor
+    private func setupTitle(textЕitle: String,
+                            textFont: UIFont,
+                            textColor: UIColor) {
+        self.title.text = textЕitle.capitalized
+        self.title.font = textFont
+        self.title.textColor = textColor
     }
     
     private func setupCellBackgroundColor(cellBackgroundColor: UIColor) {
