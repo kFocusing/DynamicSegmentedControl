@@ -96,14 +96,13 @@ class DynamicSegmentedControl: UIView {
     private func setupSegment() {
         let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: segmentedItems[0]) * itemsPerRow) + minimumInteritemSpacing + cellTextIndent * 2
         let segmentUnderlineHeight: CGFloat = 2.0
-        let segmentUnderlineXPosition = collectionView.bounds.minX
         let segmentUnderLineYPosition = collectionView.bounds.maxY - 1
-        let segmentUnderlineFrame = CGRect(x: segmentUnderlineXPosition,
-                                           y: segmentUnderLineYPosition,
-                                           width: segmentUnderlineWidth,
-                                           height: segmentUnderlineHeight)
+        
+        var segmentUnderlineFrame = CGRect()
+        segmentUnderlineFrame.size = CGSize(width: segmentUnderlineWidth, height: segmentUnderlineHeight)
         
         let segmentUnderline = UIView(frame: segmentUnderlineFrame)
+        segmentUnderline.center = CGPoint(x: segmentUnderlineWidth / 2, y: segmentUnderLineYPosition)
         segmentUnderline.backgroundColor = UIColor.clear
         
         collectionView.addSubview(segmentUnderline)
@@ -113,13 +112,13 @@ class DynamicSegmentedControl: UIView {
     private func addUnderlineForSelectedSegment(selectedSegmentIndex: Int = 0) {
         let underlineWidth: CGFloat = getSegmentWidth(from: segmentedItems[selectedSegmentIndex]) + cellTextIndent + minimumInteritemSpacing
         let underlineHeight: CGFloat = 2.0
-        let underlineXPosition = (CGFloat(selectedSegmentIndex) * underlineWidth) 
         let underLineYPosition = collectionView.bounds.maxY - 1
-        let underlineFrame = CGRect(x: underlineXPosition,
-                                    y: underLineYPosition,
-                                    width: underlineWidth,
-                                    height: underlineHeight)
+        
+        var underlineFrame = CGRect()
+        underlineFrame.size = CGSize(width: underlineWidth, height: underlineHeight)
+        
         let underline = UIView(frame: underlineFrame)
+        underline.center = CGPoint(x: underlineWidth / 2, y: underLineYPosition)
         underline.backgroundColor = underlineColor
         selectionIndicator = underline
         collectionView.addSubview(underline)
