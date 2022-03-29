@@ -94,9 +94,7 @@ class DynamicSegmentedControl: UIView {
     }
     
     private func setupSegment() {
-        guard let firstSegment = segmentedItems.first else { return }
-        
-        let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: firstSegment) * itemsPerRow) + minimumInteritemSpacing + cellTextIndent * 2
+        let segmentUnderlineWidth: CGFloat = (getSegmentWidth(from: segmentedItems[0]) * itemsPerRow) + minimumInteritemSpacing + cellTextIndent * 2
         let segmentUnderlineHeight: CGFloat = 2.0
         let segmentUnderlineXPosition = collectionView.bounds.minX
         let segmentUnderLineYPosition = collectionView.bounds.maxY - 1
