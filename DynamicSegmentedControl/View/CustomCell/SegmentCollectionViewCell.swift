@@ -7,20 +7,19 @@
 
 import UIKit
 
-class PlaceCollectionViewCell: BaseCollectionViewCell {
+class SegmentCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Variables -
     private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.systemGray4
+        view.backgroundColor = .systemGray4
         contentView.addSubview(view)
         return view
     }()
     private lazy var title: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name:"HelveticaNeue-Bold", size: 17.0)
+        label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
         contentView.addSubview(label)
@@ -39,8 +38,14 @@ class PlaceCollectionViewCell: BaseCollectionViewCell {
     }
     
     //MARK: - Internal -
-    func configure(with title: String) {
-        setupTitle(with: title)
+    func configure(textTitle: String,
+                   textFont: UIFont = .boldSystemFont(ofSize: 17),
+                   textColor: UIColor = .blue,
+                   cellBackgroundColor: UIColor = .systemGray4) {
+        setupTitle(textЕitle: textTitle,
+                   textFont: textFont,
+                   textColor: textColor)
+        setupCellBackgroundColor(cellBackgroundColor: cellBackgroundColor)
     }
     
     //MARK: - Private -
@@ -59,7 +64,15 @@ class PlaceCollectionViewCell: BaseCollectionViewCell {
         ])
     }
     
-    private func setupTitle(with title: String) {
-        self.title.text = title
+    private func setupTitle(textЕitle: String,
+                            textFont: UIFont,
+                            textColor: UIColor) {
+        self.title.text = textЕitle.capitalized
+        self.title.font = textFont
+        self.title.textColor = textColor
+    }
+    
+    private func setupCellBackgroundColor(cellBackgroundColor: UIColor) {
+        self.containerView.backgroundColor = cellBackgroundColor
     }
 }
