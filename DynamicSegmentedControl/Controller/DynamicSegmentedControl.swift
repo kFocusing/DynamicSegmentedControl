@@ -83,7 +83,7 @@ class DynamicSegmentedControl: UIView {
     }
     
     //MARK: - Internal -
-    func addSegments(_ segments: [String]) {
+    func configure(with segments: [String]) {
         segmentedItems = segments
         collectionView.reloadData()
     }

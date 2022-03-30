@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     private lazy var dynamicSegmentedControl: DynamicSegmentedControl = {
         let dynamicSegmentedControl = DynamicSegmentedControl()
         let segmentArray = ["Hello", "Home", "YANKEE", "mAster SporT", "All poland childs like work"]
-        dynamicSegmentedControl.addSegments(segmentArray)
+        dynamicSegmentedControl.configure(with: segmentArray)
         return dynamicSegmentedControl
     }()
     
